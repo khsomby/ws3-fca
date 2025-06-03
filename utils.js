@@ -1089,14 +1089,7 @@ function generateTimestampRelative() {
 
 function makeDefaults(html, userID, ctx) {
   let reqCounter = 1;
-  const fb_dtsg = getFrom(html, 'name="fb_dtsg" value="', '"');
-
-  let ttstamp = "2";
-  for (let i = 0; i < fb_dtsg.length; i++) {
-    ttstamp += fb_dtsg.charCodeAt(i);
-  }
   const revision = getFrom(html, 'revision":', ",");
-
   function mergeWithDefaults(obj) {
     const newObj = {
       av: userID,
@@ -1104,8 +1097,10 @@ function makeDefaults(html, userID, ctx) {
       __req: (reqCounter++).toString(36),
       __rev: revision,
       __a: 1,
-      fb_dtsg: ctx.fb_dtsg || fb_dtsg,
-      jazoest: ctx.ttstamp || ttstamp
+      ...(ctx && {
+       fb_dtsg: ctx.fb_dtsg,
+       jazoest: ctx.jazoest
+      })
     }
 
     if (!obj) return newObj;
