@@ -135,20 +135,6 @@ async function checkIfLocked(resp, appstate) {
 async function buildAPI(html, jar) {
   let userID;
   const filePath = "fb_dtsg_data.json";
-  const refreshFb_dtsg = async () => {
-    const getDtsg = await utils.get(fbLink("ajax/dtsg/?__a=true"), jar, null, globalOptions);
-    const dtsg = JSON.parse(getDtsg.body.replace('for (;;);{', "{")).payload.token;
-    let jazoest = "2";
-    for (const char of dtsg) {
-      jazoest += char.charCodeAt(0);
-    }
-    const result = { fb_dtsg: dtsg, jazoest };
-    const existingData = fs.existsSync(filePath) ? JSON.parse(fs.readFileSync(filePath, "utf8")) : {};
-    existingData[userID] = result;
-    fs.writeFileSync(filePath, JSON.stringify(existingData, null, 4), "utf8");
-    return result;
-  }
-  const dtsgResult = await refreshFb_dtsg();
   const cookies = jar.getCookies(fbLink());
   const primaryProfile = cookies.find((val) => val.cookieString().startsWith("c_user="));
   const secondaryProfile = cookies.find((val) => val.cookieString().startsWith("i_user="));
@@ -163,6 +149,20 @@ async function buildAPI(html, jar) {
   }
   
   userID = secondaryProfile?.cookieString().split("=")[1] || primaryProfile.cookieString().split("=")[1];
+  const refreshFb_dtsg = async () => {
+    const getDtsg = await utils.get(fbLink("ajax/dtsg/?__a=true"), jar, null, globalOptions);
+    const dtsg = JSON.parse(getDtsg.body.replace('for (;;);{', "{")).payload.token;
+    let jazoest = "2";
+    for (const char of dtsg) {
+      jazoest += char.charCodeAt(0);
+    }
+    const result = { fb_dtsg: dtsg, jazoest };
+    const existingData = fs.existsSync(filePath) ? JSON.parse(fs.readFileSync(filePath, "utf8")) : {};
+    existingData[userID] = result;
+    fs.writeFileSync(filePath, JSON.stringify(existingData, null, 4), "utf8");
+    return result;
+  }
+  const dtsgResult = await refreshFb_dtsg();
   utils.log("Logged in!");
   utils.log("Choosing the best region...");
   const clientID = (Math.random() * 2147483648 | 0).toString(16);

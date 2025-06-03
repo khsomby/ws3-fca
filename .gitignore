@@ -2,4 +2,4 @@ node_modules
 appstate.json
 test.js
 package-lock.json
-fb-dtsg-data.json
+fb_dtsg_data.json
