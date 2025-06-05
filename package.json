@@ -43,7 +43,8 @@
     "devDependencies": {
         "eslint": "^7.5.0",
         "mocha": "^7.0.1",
-        "prettier": "^1.11.1"
+        "prettier": "^1.11.1",
+        "typescript": "^5.8.3"
     },
     "engines": {
         "node": ">=10.x"
