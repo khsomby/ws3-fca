@@ -1,0 +1,100 @@
+export type Attachment =
+  | {
+      type: "sticker";
+      ID: string;
+      url: string;
+      packID: string;
+      spriteUrl: string;
+      spriteUrl2x: string;
+      width: number;
+      height: number;
+      caption: string;
+      description: string;
+      frameCount: number;
+      frameRate: number;
+      framesPerRow: number;
+      framesPerCol: number;
+    }
+  | {
+      type: "file";
+      ID: string;
+      filename: string;
+      url: string;
+      isMalicious: boolean;
+      contentType: string;
+    }
+  | {
+      type: "photo";
+      ID: string;
+      filename: string;
+      thumbnailUrl: string;
+      previewUrl: string;
+      previewWidth: number;
+      previewHeight: number;
+      largePreviewUrl: string;
+      largePreviewWidth: number;
+      largePreviewHeight: number;
+      url: string;
+      width: number;
+      height: number;
+    }
+  | {
+      type: "animated_image";
+      ID: string;
+      filename: string;
+      previewUrl: string;
+      previewWidth: number;
+      previewHeight: number;
+      url: string;
+      width: number;
+      height: number;
+    }
+  | {
+      type: "video";
+      ID: string;
+      filename: string;
+      previewUrl: string;
+      previewWidth: number;
+      previewHeight: number;
+      url: string;
+      width: number;
+      height: number;
+      duration: number;
+      videoType: string;
+    }
+  | {
+      type: "audio";
+      ID: string;
+      filename: string;
+      audioType: string;
+      duration: number;
+      url: string;
+      isVoiceMail: boolean;
+    }
+  | {
+      type: "location";
+      ID: string;
+      latitude: number;
+      longitude: number;
+      image: string;
+      width: number;
+      height: number;
+      url: string;
+      address: string;
+    }
+  | {
+      type: "share";
+      ID: string;
+      url: string;
+      title: string;
+      description: string;
+      source: string;
+      image: string;
+      width: number;
+      height: number;
+      playable: boolean;
+      duration: number;
+      playableUrl: string;
+      subattachments: any;
+      properties: any;
+    };

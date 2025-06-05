@@ -41,6 +41,7 @@
         "websocket-stream": "^5.5.0"
     },
     "devDependencies": {
+        "@types/node": "^22.15.29",
         "eslint": "^7.5.0",
         "mocha": "^7.0.1",
         "prettier": "^1.11.1",
