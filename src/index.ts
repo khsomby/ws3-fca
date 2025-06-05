@@ -1,27 +1,28 @@
 "use strict";
 
-const utils = require("./utils");
-const fs = require("fs");
-const cron = require("node-cron");
+import * as utils from "./utils";
+import fs from "fs/promises";
+import * as t from "./types";
 
-let globalOptions = {};
-let ctx = null;
-let defaultFuncs = null;
-let api = null;
-let region = null;
+// globals
+let globalOptions: t.GlobalOptions = {};
+let ctx = {};
+let defaultFuncs = {};
+let api = {};
+let region = "";
 
 const fbLink = (ext) => ("https://www.facebook.com" + (ext ? '/' + ext : ''));
 const ERROR_RETRIEVING = "Error retrieving userID. This can be caused by many factors, including being blocked by Facebook for logging in from an unknown location. Try logging in with a browser to verify.";
 
 /**
  * Sets global options based on provided configuration.
- * @param {Object} options - Configuration options to set.
- * @returns {Promise<void>}
+ * @param options - Configuration options to set.
+ * @returns Nothing.
  */
-async function setOptions(options = {}) {
+async function setOptions(options: Record<string, T>): Promise<void> {
   const optionHandlers = {
-    online: (value) => (globalOptions.online = Boolean(value)),
-    selfListen: (value) => (globalOptions.selfListen = Boolean(value)),
+    online: (value) => (globalOptions.online = value),
+    selfListen: (value) => (globalOptions.selfListen = value)),
     selfListenEvent: (value) => (globalOptions.selfListenEvent = value),
     listenEvents: (value) => (globalOptions.listenEvents = Boolean(value)),
     updatePresence: (value) => (globalOptions.updatePresence = Boolean(value)),
