@@ -3,7 +3,8 @@ import {
   ThreadList,
   Friend,
   UserIDResponse,
-  ListenMessage
+  ListenMessage,
+  EventEmitter,
 } from ".";
 
 export type Api = {
@@ -148,7 +149,7 @@ export type Api = {
     callback?: (err: Error | null, message: ListenMessage) => void,
   ): EventEmitter;
   listenMqtt(
-    callback?: (err: Error | null, message: IFCAU_ListenMessage) => void,
+    callback?: (err: Error | null, message: ListenMessage) => void,
   ): EventEmitter & { stopListening: (callback?: () => void) => void };
   logout: (callback?: (err?: Error) => void) => Promise<void>;
   markAsDelivered(
